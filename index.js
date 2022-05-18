@@ -1,29 +1,13 @@
 const CONVENTIONAL_COMMENTS = {
-  nitpick: {
-    icon: "info-circle",
-  },
-  typo: {
-    icon: "keyboard-o",
-  },
-  suggestion: {
-    icon: "pencil",
-  },
-  issue: {
-    icon: "exclamation-triangle",
-    stylePrefix: "IMPORTANT",
-  },
-  question: {
-    icon: "question-circle",
-  },
-  thought: {
-    icon: "comment",
-  },
-  "follow-up": {
-    icon: "share",
-  },
-  praise: {
-    icon: "thumbs-up",
-  },
+  chore: { icon: "check-square-o" },
+  convention: { icon: "file-code-o" },
+  issue: { icon: "exclamation-triangle" },
+  nitpick: { icon: "hand-o-right" },
+  props: { icon: "thumbs-o-up" },
+  question: { icon: "question-circle-o" },
+  suggestion: { icon: "pencil" },
+  thought: { icon: "commenting-o" },
+  typo: { icon: "keyboard-o" }
 };
 
 // Add the UI to the main comment textarea (the one at the bottom of the page)
@@ -32,7 +16,7 @@ addConventionalCommentUIToCommentToolbar(
 );
 
 // Listen for DOM Mutation in order to detect when the comment textarea is displayed on the page
-const observer = new MutationObserver((mutations) => {
+const observer = new MutationObserver(mutations => {
   for (let mutation of mutations) {
     for (let addedNode of mutation.addedNodes) {
       const commentContainer = addedNode.querySelector
@@ -100,9 +84,9 @@ function addConventionalCommentUIToCommentToolbar(commentContainerEl) {
     );
     const commentLabel = `${
       labelData.stylePrefix ? `(${labelData.stylePrefix})` : ""
-    }{nav, ${labelData.icon ? ` icon=${labelData.icon},` : ""} name=${
-      select.value
-    }:} `;
+    }{nav, type=instructions, ${
+      labelData.icon ? ` icon=${labelData.icon},` : ""
+    } name=${select.value}:} `;
     const cursor = textAreaEl.selectionStart || 0;
     const prefix = textAreaEl.value.substring(0, cursor);
     const suffix = textAreaEl.value.substring(cursor);
